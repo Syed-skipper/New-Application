@@ -3,7 +3,6 @@ const router = express.Router();
 
 router.get('/read', function (req, res) {
   SampleModule.findAll({raw:true,order:[['firstname','ASC']]}).then(function (user) {
-    console.log("user",user)
   res.status(200).send(user)
   }, function (err) {
     res.status(500).send("There was a problem in finding the Users")
@@ -31,7 +30,6 @@ router.delete('/delete/:id', function (req, res) {
 router.put('/update/:id', function (req,res) {
   var id = req.params.id
   var request = req.body
-  console.log(request)
   SampleModule.update(request,{where: {id:id}}).then(function (updated) {
    res.send({"msg" : 'Updated Successfully Updated'}),
    function(err) {
