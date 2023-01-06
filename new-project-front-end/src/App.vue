@@ -185,7 +185,6 @@ export default {
             }
         setTimeout(show, 5000)
       }else{
-        console.log(message.response.data.msg)
       }
       } catch (error) {
         toastr.warning("Email or Mobile Already Exist")
@@ -198,7 +197,6 @@ export default {
       var id = data
       const response = await axios.delete(`http://localhost:8080/sample/delete/${id}`)
       toastr.success("User Deleted Successfully")
-      console.log(response)
       function show1(){
         location.reload()
       }
@@ -228,7 +226,6 @@ export default {
             }
         setTimeout(show2, 5000)
       }else{
-        console.log(response)
       }
     },
 
