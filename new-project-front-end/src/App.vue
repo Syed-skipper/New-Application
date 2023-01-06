@@ -200,7 +200,7 @@ export default {
       function show1(){
         location.reload()
       }
-      setTimeout(show1, 5000) 
+      setTimeout(show1, 2000) 
      },
 
     async deleteItemById(rowData) {
