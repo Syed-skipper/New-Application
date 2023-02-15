@@ -18,6 +18,4 @@ var Sampledata = sequelize.define('sampledata', {
     address: { type: Sequelize.STRING }
 })
 
-//console.log("Sampledata",Sampledata.rawAttributes)
-
 module.exports=Sampledata;
