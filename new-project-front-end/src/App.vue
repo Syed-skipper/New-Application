@@ -3,7 +3,7 @@
     <va-card id='card'>
       <h1>Users List</h1>
       <va-data-table :columns="columns" :items="filteredData" :per-page="parseInt(perPage)" clickable id="table">
-        <template #cell(actions)={rowData}>
+        <!-- <template #cell(actions)={rowData}>
           <va-button preset="plain" icon="edit" @click="editUser(rowData)" />
           <va-button preset="plain" icon="delete" @click="deleteItemById(rowData)" />
           <va-modal v-model="showModal" 
@@ -12,7 +12,7 @@
           cancelText="Cancel"
           @ok="deleteUser(entity)"
           @cancel="cancel()" />
-        </template>
+        </template> -->
       </va-data-table>
       <va-button type="button" style=" margin-bottom: 30px; margin-top: 30px;"
         @click="showForm()">Add User</va-button>
@@ -27,49 +27,35 @@
         <va-input 
            type="text" 
            name="firstname" 
-           pattern="^[A-Za-z0-9_-]+(?: +[A-Za-z0-9_-]+)*$"
            v-model="fullData.firstname" 
            :required="true" 
-           :error="!!firstNameErrors.length"
-           :error-messages="firstNameErrors"/> <br /><br />
+           /> <br /><br />
         <label for="lastname">Last Name</label><br />
         <va-input 
            type="text" 
            name="lastname" 
-           pattern="^[A-Za-z0-9_-]+(?: +[A-Za-z0-9_-]+)*$"
            v-model="fullData.lastname"
-           :error="!!lastNameErrors.length"
-           :error-messages="lastNameErrors" 
            :required="true" /><br /><br />
         <label for="email">Email</label><br />
         <va-input 
            type="email" 
-           pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
            v-model="fullData.email" 
-           :error="!!emailErrors.length"
-           :error-messages="emailErrors"
            :required="true" /><br /><br />
         <label for="number">Mobile Number</label><br />
         <va-input 
            type="telphone" 
-           pattern="[6-9]{1}[0-9]{9}"
-           maxlength="10" 
            v-model="fullData.number"
-           :error="!!numberErrors.length"
-           :error-messages="numberErrors" 
            :required="true" /><br /><br />
         <label for="address">Address</label><br />
         <va-input 
            type="text" 
            name="address" 
            v-model="fullData.address" 
-           :error="!!addressErrors.length"
-           :error-messages="addressErrors"
            :required="true" /><br /><br /><br />
-        <va-button 
+        <!-- <va-button 
            v-if="isUpdate" 
            @click.prevent="updateUser()">Update
-        </va-button>
+        </va-button> -->
         <va-button 
            v-if="isCreate" 
            type="submit" 
@@ -79,10 +65,10 @@
            v-if="isCreate" 
            @click="showlist()"> Show List 
           </va-button>
-        <va-button 
+        <!-- <va-button 
            v-if="isUpdate" 
            @click="cancelList()">Cancel
-          </va-button>
+          </va-button> -->
 
       </form>
     </div>
@@ -92,9 +78,9 @@
 
 <script>
 import axios from 'axios';
-import {useToastr} from '../toaster'
+// import {useToastr} from '../toaster'
 
-const toastr = useToastr();
+// const toastr = useToastr();
 
 export default {
   created() {
@@ -107,7 +93,7 @@ export default {
       { key: 'email', sortable: true },
       { key: 'number', width: 80 },
       { key: 'address', sortable: true },
-      { key: 'actions', width: 80 }
+      // { key: 'actions', width: 80 }
     ]
     return {
       fullData: {
@@ -119,15 +105,15 @@ export default {
       },
       isshowForm: false,
       isshowgrid: true,
-      isUpdate: false,
+      // isUpdate: false,
       isCreate: true,
       showModal : false,
       userdata: [],
-      firstNameErrors:[],
-      lastNameErrors:[],
-      emailErrors:[],
-      numberErrors:[],
-      addressErrors:[],
+      // firstNameErrors:[],
+      // lastNameErrors:[],
+      // emailErrors:[],
+      // numberErrors:[],
+      // addressErrors:[],
       firstname: '',
       lastname: '',
       email: '',
@@ -143,13 +129,13 @@ export default {
     filteredData() {
       return (this.userdata)
     },
-    formReady () {
-      return !this.firstNameErrors.length && 
-             !this.lastNameErrors.length && 
-             !this.emailErrors.length && 
-             !this.numberErrors.length &&
-             !this.addressErrors.length
-                 },
+    // formReady () {
+    //   return !this.firstNameErrors.length && 
+    //          !this.lastNameErrors.length && 
+    //          !this.emailErrors.length && 
+    //          !this.numberErrors.length &&
+    //          !this.addressErrors.length
+    //              },
               },
   methods: {
     async getAllUser() {
@@ -160,14 +146,14 @@ export default {
 
     async addUser(e) {
       e.preventDefault();
-      this.firstNameErrors = this.fullData.firstname ? [] : ['FirstName is required']
-      this.lastNameErrors = this.fullData.lastname ? [] : ['LastName is required']
-      this.emailErrors = this.fullData.email ? [] : ['Email is required']
-      this.numberErrors = this.fullData.number ? [] : ['Number is required']
-      this.addressErrors = this.fullData.address ? [] : ['Address is required']
-      if (!this.formReady) {
-        return
-      }
+      // this.firstNameErrors = this.fullData.firstname ? [] : ['FirstName is required']
+      // this.lastNameErrors = this.fullData.lastname ? [] : ['LastName is required']
+      // this.emailErrors = this.fullData.email ? [] : ['Email is required']
+      // this.numberErrors = this.fullData.number ? [] : ['Number is required']
+      // this.addressErrors = this.fullData.address ? [] : ['Address is required']
+      // if (!this.formReady) {
+      //   return
+      // }
       var payload = {
         firstname: this.fullData.firstname,
         lastname: this.fullData.lastname,
@@ -178,69 +164,69 @@ export default {
       try {
         const response = await axios.post('http://localhost:8080/sample/create', payload)
       console.log(response)
-      if(response.status ===200){
-        toastr.success("User Created Successfully")
-        function show() {
-           location.reload()
-            }
-        setTimeout(show, 5000)
-      }else{
-      }
+      // if(response.status ===200){
+      //   toastr.success("User Created Successfully")
+      //   function show() {
+      //      location.reload()
+      //       }
+      //   setTimeout(show, 5000)
+      // }else{
+      // }
       } catch (error) {
-        toastr.warning("Email or Mobile Already Exist")
+        // toastr.warning("Email or Mobile Already Exist")
       }
       
       this.isshowgrid = true;
       this.isshowForm = false;
-    },
-     async deleteUser(data) {
-      var id = data
-      const response = await axios.delete(`http://localhost:8080/sample/delete/${id}`)
-      toastr.success("User Deleted Successfully")
-      function show1(){
-        location.reload()
-      }
-      setTimeout(show1, 2000) 
      },
+    //  async deleteUser(data) {
+    //   var id = data
+    //   const response = await axios.delete(`http://localhost:8080/sample/delete/${id}`)
+    //   toastr.success("User Deleted Successfully")
+    //   function show1(){
+    //     location.reload()
+    //   }
+    //   setTimeout(show1, 2000) 
+    //  },
 
-    async deleteItemById(rowData) {
-      this.showModal = true;
-      this.entity = rowData.id
-      },
+    // async deleteItemById(rowData) {
+    //   this.showModal = true;
+    //   this.entity = rowData.id
+    //   },
 
-    async updateUser() {
-      var payload = {
-        firstname: this.fullData.firstname,
-        lastname: this.fullData.lastname,
-        email: this.fullData.email,
-        number: this.fullData.number,
-        address: this.fullData.address
-      }
-      this.isshowForm = false;
-      this.isshowgrid = true;
-      const response = await axios.put(`http://localhost:8080/sample/update/${this.fullData.id}`, payload)
-      if(response.status ===200){
-        toastr.success("User Updated Successfully")
-        function show2() {
-           location.reload()
-            }
-        setTimeout(show2, 5000)
-      }else{
-      }
-    },
+    // async updateUser() {
+    //   var payload = {
+    //     firstname: this.fullData.firstname,
+    //     lastname: this.fullData.lastname,
+    //     email: this.fullData.email,
+    //     number: this.fullData.number,
+    //     address: this.fullData.address
+    //   }
+    //   this.isshowForm = false;
+    //   this.isshowgrid = true;
+    //   const response = await axios.put(`http://localhost:8080/sample/update/${this.fullData.id}`, payload)
+    //   if(response.status ===200){
+    //     toastr.success("User Updated Successfully")
+    //     function show2() {
+    //        location.reload()
+    //         }
+    //     setTimeout(show2, 5000)
+    //   }else{
+    //   }
+    // },
 
-    async editUser(row) {
-      this.fullData.id = row.id
-      this.fullData.firstname = row.firstname,
-      this.fullData.lastname = row.lastname,
-      this.fullData.email = row.email,
-      this.fullData.number = row.number,
-      this.fullData.address = row.address,
-      this.isshowgrid = false;
-      this.isshowForm = true;
-      this.isCreate = false;
-      this.isUpdate = true;
-    },
+    // async editUser(row) {
+    //   this.fullData.id = row.id
+    //   this.fullData.firstname = row.firstname,
+    //   this.fullData.lastname = row.lastname,
+    //   this.fullData.email = row.email,
+    //   this.fullData.number = row.number,
+    //   this.fullData.address = row.address,
+    //   this.isshowgrid = false;
+    //   this.isshowForm = true;
+    //   this.isCreate = false;
+    //   this.isUpdate = true;
+    // },
     showlist() {
       this.isshowgrid = true;
       this.isshowForm = false;
@@ -252,11 +238,11 @@ export default {
       this.fullData.email = '',
       this.fullData.number = '',
       this.fullData.address = '',
-      this.firstNameErrors = [],
-      this.lastNameErrors = [],
-      this.emailErrors = [],
-      this.numberErrors = [],
-      this.addressErrors= [],
+      // this.firstNameErrors = [],
+      // this.lastNameErrors = [],
+      // this.emailErrors = [],
+      // this.numberErrors = [],
+      // this.addressErrors= [],
       this.isshowForm = true;
       this.isshowgrid = false;
     },
@@ -267,12 +253,12 @@ export default {
       this.isshowForm = false;
       this.isshowgrid = true;
       this.isCreate = true;
-      this.isUpdate = false;
+      // this.isUpdate = false;
     }
   },
 }
 </script>
-<style>
+<!-- <style>
 #signup {
   display: flex;
   justify-content: center;
@@ -336,4 +322,4 @@ button {
   padding: 0;
 
 }
-</style>
+</style> -->

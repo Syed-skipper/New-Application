@@ -17,26 +17,26 @@ router.post('/create', function (req, res) {
   })
 });
 
-router.delete('/delete/:id', function (req, res) {
-  var id = req.params.id
-  SampleModule.destroy({where:{id:id}}).then(function (user) {
-    res.send({msg :'Data deleted Successfully'}), 
-    function (err) {
-      res.send({msg : 'Cannot delete Data'})
-    }
-  })
-})
+// router.delete('/delete/:id', function (req, res) {
+//   var id = req.params.id
+//   SampleModule.destroy({where:{id:id}}).then(function (user) {
+//     res.send({msg :'Data deleted Successfully'}), 
+//     function (err) {
+//       res.send({msg : 'Cannot delete Data'})
+//     }
+//   })
+// })
 
-router.put('/update/:id', function (req,res) {
-  var id = req.params.id
-  var request = req.body
-  SampleModule.update(request,{where: {id:id}}).then(function (updated) {
-   res.send({"msg" : 'Updated Successfully Updated'}),
-   function(err) {
-    res.send({"msg" : 'Not Able to Update'})
-   }
-  })
-})
+// router.put('/update/:id', function (req,res) {
+//   var id = req.params.id
+//   var request = req.body
+//   SampleModule.update(request,{where: {id:id}}).then(function (updated) {
+//    res.send({"msg" : 'Updated Successfully Updated'}),
+//    function(err) {
+//     res.send({"msg" : 'Not Able to Update'})
+//    }
+//   })
+// })
 
 module.exports = router;
 
